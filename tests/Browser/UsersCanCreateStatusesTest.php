@@ -24,8 +24,9 @@ class UsersCanCreateStatusesTest extends DuskTestCase
         $this->browse(function (Browser $browser) use ($user) {
             $browser->loginAs($user)
                     ->visit('/')
-                    ->type('body', 'My first status 2')
+                    ->type('body', 'My first status')
                     ->press('#create-status')
+//                    ->waitForText('My first status')
                     ->assertSee('My first status');
         });
     }
