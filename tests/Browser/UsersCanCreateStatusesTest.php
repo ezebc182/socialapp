@@ -7,8 +7,7 @@ use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class UsersCanCreateStatusesTest extends DuskTestCase
-{
+class UsersCanCreateStatusesTest extends DuskTestCase {
     use DatabaseMigrations;
 
     /**
@@ -17,17 +16,17 @@ class UsersCanCreateStatusesTest extends DuskTestCase
      * @test
      * @throws \Throwable
      */
-    public function users_can_create_statuses()
-    {
+    public function users_can_create_statuses () {
         $user = factory(User::class)->create();
 
         $this->browse(function (Browser $browser) use ($user) {
             $browser->loginAs($user)
-                    ->visit('/')
-                    ->type('body', 'My first status')
-                    ->press('#create-status')
-//                    ->waitForText('My first status')
-                    ->assertSee('My first status');
+                ->visit('/')
+                ->type('body', 'My first status')
+                ->press('#create-status')
+                ->waitForText('My first status')
+                ->assertSee('My first status')
+                ->assertSee($user->name);
         });
     }
 }

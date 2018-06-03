@@ -31,7 +31,11 @@ class CreateStatusTest extends TestCase
 
         $response = $this->postJson(route('statuses.store'), [ 'body' => 'My status']);
 
-        $response->assertJson(['body' => 'My status']);
+        $response->assertJson(
+            [
+            'data' => ['body' => 'My status']
+            ]
+        );
 
 
 

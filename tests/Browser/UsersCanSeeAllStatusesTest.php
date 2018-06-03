@@ -17,13 +17,16 @@ class UsersCanSeeAllStatusesTest extends DuskTestCase {
      */
     public function users_can_see_all_statuses_on_the_homepage () {
         $statuses = factory(Status::class, 3)->create();
-        $this->browse(function (Browser $browser) use ($statuses) {
 
+        $this->browse(function (Browser $browser) use ($statuses) {
             $browser->visit('/')
                 ->waitForText($statuses->first()->body);
 
             foreach ($statuses as $status) {
-                $browser->assertSee($status->body);
+                $created_at = $status->created_at->diffForHumans();
+                $browser->assertSee($status->body)
+                    ->assertSee($status->user->name)
+                    ->assertSee($created_at);
             }
         });
     }
